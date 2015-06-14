@@ -94,3 +94,23 @@ BOOST_AUTO_TEST_CASE(ActionWithScalarWithDual)
 	BOOST_CHECK(vectorResultShare.m_y == 20);
 	BOOST_CHECK(vectorResultShare.m_z == 60);
 }
+
+BOOST_AUTO_TEST_CASE(CheckDotProduct)
+{
+	CVector3D vectorOne(2, 3, 2);
+	CVector3D vectorTwo(5, 5, 3);
+	double result = DotProduct(vectorOne, vectorTwo);
+	BOOST_CHECK(result == 31);
+
+}
+
+BOOST_AUTO_TEST_CASE(CheckCrossProduct)
+{
+	CVector3D vectorOne(2, 3, 2);
+	CVector3D vectorTwo(5, 5, 3);
+
+	CVector3D result = CrossProduct(vectorOne, vectorTwo);
+	BOOST_CHECK(result.m_x == -1);
+	BOOST_CHECK(result.m_y == 4);
+	BOOST_CHECK(result.m_z == -5);
+}
