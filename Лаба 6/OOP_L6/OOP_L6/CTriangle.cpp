@@ -6,14 +6,16 @@
 CTriangle::CTriangle(double side1, double side2, double side3)
 	:m_side1(side1), m_side2(side2), m_side3(side3)
 {
-	if (m_side1 < 0 || m_side2 < 0 || m_side3 < 0)
+	if (m_side1 < 0 || m_side2 < 0 ||  m_side3 < 0)
 	{
 		throw std::invalid_argument("sides must be >= 0");
 	}
+	
 	if (m_side1 >(m_side2 + m_side3) || m_side2 > (m_side1 + m_side3) || m_side3 > (m_side2 + m_side1))
 	{
 		throw std::domain_error("incorrectly set side");
 	}
+	
 }
 
 CTriangle::~CTriangle()

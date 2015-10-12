@@ -1,13 +1,21 @@
 #include "stdafx.h"
 #include "CStudent.h"
-#include <stdexcept>
+//#include <stdexcept>
+#include "CTakhirException.h" 
 
+/*
+Не изменяемые внутри функции объекты следует либо передавать по константной ссылке
+	либо по значению с последующей "кражей" содержимого
+У класса строк есть метод empty()
 
-CStudent::CStudent(string name, string surname, string patronymic, int age)
+*/
+
+CStudent::CStudent(string const& name, string const& surname, 
+	string const& patronymic, int const& age)
 {
 	if (name.size() == 0 || (count(name.begin(), name.end(), ' ') != 0))
 	{
-		throw invalid_argument("incorrect name is entered");
+		throw CTakhirException("incorrect name is entered");
 	}
 	if (surname.size() == 0 || (count(surname.begin(), surname.end(), ' ') != 0))
 	{
@@ -23,7 +31,7 @@ CStudent::CStudent(string name, string surname, string patronymic, int age)
 	}
 	m_name = name;
 	m_surname = surname;
-	m_patronymic = patronymic;
+	m_patronymic  = patronymic;
 	m_age = age;
 }
 
@@ -33,7 +41,7 @@ CStudent::~CStudent()
 
 string CStudent::GetName()
 {
-	return m_name;
+	return  m_name;
 }
 
 string CStudent::GetSurname()
@@ -57,36 +65,34 @@ void CStudent::Rename(string name, string surname, string patronymic)
 	{
 		throw invalid_argument("incorrect name is entered");
 	}
-	else
-	{
-		m_name.clear();
-		m_name = name;
-	}
 	if (surname.size() == 0 || (count(surname.begin(), surname.end(), ' ') != 0))
 	{
 		throw invalid_argument("incorrect surname is entered");
-	}
-	else
-	{
-		m_surname.clear();
-		m_surname = surname;
 	}
 	if (patronymic.size() != 0 && (count(patronymic.begin(), patronymic.end(), ' ') != 0))
 	{
 		throw invalid_argument("incorrect patronymic is entered");
 	}
-	else
-	{
-		m_patronymic.clear();
-		m_patronymic = patronymic;
-	}
+
+	m_name.swap(name);
+	m_surname.swap(surname);
+	m_patronymic.swap(patronymic);
+
 }
 
+/*
+При попытке помолодеть тип исключения должен быть другим
+*/
 void CStudent::SetAge(int age)
 {
-	if (age < 14 || age > 60 || age < m_age)
+	if (age < 14 || age > 60)
 	{
 		throw out_of_range("incorrect age is entered");
+	}
+
+	if (m_age > age)
+	{
+		throw domain_error("incorrect age is entered");
 	}
 	
 	m_age = age;

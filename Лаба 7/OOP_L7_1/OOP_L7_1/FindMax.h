@@ -3,19 +3,25 @@
 
 using namespace std;
 
-template < typename T, typename Less>
-bool FindMax(vector<T> const & arr, T & maxValue, Less less(T const &param1, T const &param2))
+template <typename T, typename Less = std::less<T>>
+bool FindMax(vector<T> const & arr, T & maxValue, const Less & less = Less())
 {
 	if (arr.size() == 0)
 	{
 		return false;
 	}
 
-	maxValue = arr[0];
-	for (int i = 0; i < arr.size(); i++)
+	//maxValue = arr[0];
+	size_t index = 0;
+	for (size_t i = 0; i < arr.size(); i++)
 	{
-		if (less(arr[i], maxValue))
-			maxValue = arr[i];
+		if (less(arr[index], arr[i]))
+			//maxValue = arr[i];
+			index = i;
 	}
+
+	maxValue = arr[index];
+
 	return true;
 }
+

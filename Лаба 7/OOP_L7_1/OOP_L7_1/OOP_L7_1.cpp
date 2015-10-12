@@ -15,14 +15,14 @@ struct SportsmenInfo
 	double height, weight;
 };
 
-bool FindMaxHeight(SportsmenInfo const &firstParametr, SportsmenInfo const &secondParametr)
+bool HeightIsLess(SportsmenInfo const &firstParametr, SportsmenInfo const &secondParametr)
 {
-	return firstParametr.height > secondParametr.height;
+	return firstParametr.height < secondParametr.height;
 }
 
-bool FindMaxWeight(SportsmenInfo const &firstParametr, SportsmenInfo const &secondParametr)
+bool WeightIsLess(SportsmenInfo const &firstParametr, SportsmenInfo const &secondParametr)
 {
-	return firstParametr.weight > secondParametr.weight;
+	return firstParametr.weight < secondParametr.weight;
 }
 
 void PrintInfo(SportsmenInfo & sportsmens)
@@ -35,7 +35,7 @@ void PrintInfo(SportsmenInfo & sportsmens)
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	vector<SportsmenInfo> Sportsmens = {
+	vector<SportsmenInfo> sportsmen = {
 			{ "Bob", 190, 80 },
 			{ "Jonh", 194.5, 89 },
 			{ "Piter", 199, 85 }
@@ -43,13 +43,33 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	SportsmenInfo maxValue;
 
-	if (FindMax(Sportsmens, maxValue, FindMaxHeight))
+	if (FindMax(sportsmen, maxValue, [](SportsmenInfo const &firstParametr, SportsmenInfo const &secondParametr)
+	{return firstParametr.name < secondParametr.name; }))
 		PrintInfo(maxValue);
 
 	cout << endl;
 
-	if (FindMax(Sportsmens, maxValue, FindMaxWeight))
+	if (FindMax(sportsmen, maxValue, HeightIsLess))
 		PrintInfo(maxValue);
+	
+	cout << endl;
+
+	if (FindMax(sportsmen, maxValue, WeightIsLess))
+		PrintInfo(maxValue);
+
+
+	vector<int> numbers = {3, 2, 7, 3, 5, 0};
+	int maxNumber;
+
+	cout << endl;
+
+	if (FindMax(numbers, maxNumber))
+	{
+		cout << maxNumber << endl;
+	}
+
+	//bool _16_is_less_than_7 = lessInt(16, 7); // 16 < 7
+
 	return 0;
 }
 

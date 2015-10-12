@@ -10,35 +10,37 @@ BOOST_AUTO_TEST_CASE(Init)
 	BOOST_CHECK(triangle.GetSide3() == 7);
 }
 
-
-
 BOOST_AUTO_TEST_CASE(AreaAndPerimetr)
 {
-	CTriangle triangle(6, 6, 6);
-	BOOST_CHECK((triangle.GetArea() - 15.5885) < DBL_MIN);
-	BOOST_CHECK(triangle.GetPerimeter() == 18);
+	CTriangle triangle(3, 4, 5);
+	//BOOST_CHECK((triangle.GetArea() - 15.5885) < DBL_MIN);
+	BOOST_CHECK_CLOSE(triangle.GetArea(), 6, 1e-10);
+	BOOST_CHECK(triangle.GetPerimeter() == 12);
 }
 
-BOOST_AUTO_TEST_CASE(NegativeDigit)
+BOOST_AUTO_TEST_CASE(NegativeSide)
 {
-	try
-	{
-		CTriangle triangle(6, 6, -6);
-	}
-	catch (std::logic_error const & e)
-	{
-		BOOST_CHECK(e.what());
-	}
+	BOOST_CHECK_THROW((CTriangle(0, 0, -1)), std::invalid_argument);
+	BOOST_CHECK_THROW((CTriangle(0, -1, 0)), std::invalid_argument);
+	BOOST_CHECK_THROW((CTriangle(-1, 0, 0)), std::invalid_argument);
 }
 
-BOOST_AUTO_TEST_CASE(WrongSizeSide)
+BOOST_AUTO_TEST_CASE(WrongSideLength)
 {
-	try
-	{
-		CTriangle triangle(2, 2, 5);
-	}
-	catch (std::logic_error const & e)
-	{
-		BOOST_CHECK(e.what());
-	}
+	BOOST_CHECK_THROW((CTriangle(1, 2, 4)), std::domain_error);
+	BOOST_CHECK_THROW((CTriangle(4, 2, 1)), std::domain_error);
+	BOOST_CHECK_THROW((CTriangle(2, 4, 1)), std::domain_error);
 }
+
+BOOST_AUTO_TEST_CASE(DegenerateTriangle)
+{
+	BOOST_CHECK_NO_THROW((CTriangle(0, 0, 0)));
+	BOOST_CHECK_NO_THROW((CTriangle(2, 3, 5)));
+	BOOST_CHECK_NO_THROW((CTriangle(5, 3, 2)));
+	BOOST_CHECK_NO_THROW((CTriangle(2, 5, 3)));
+	BOOST_CHECK_NO_THROW((CTriangle(0, 3, 3)));
+	BOOST_CHECK_NO_THROW((CTriangle(3, 3, 0)));
+	BOOST_CHECK_NO_THROW((CTriangle(3, 0, 3)));
+}
+
+

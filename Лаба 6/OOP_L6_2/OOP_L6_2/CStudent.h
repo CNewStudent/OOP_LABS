@@ -6,7 +6,8 @@ using namespace std;
 class CStudent
 {
 public:
-	CStudent(string name, string surname, string patronymic, int age);
+	CStudent(string const& name, string const& surname, 
+		string const& patronymic, int const& age);
 	~CStudent();
 	string GetName();
 	string GetSurname();
