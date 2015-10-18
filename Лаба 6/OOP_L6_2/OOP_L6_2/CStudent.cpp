@@ -1,7 +1,8 @@
 #include "stdafx.h"
 #include "CStudent.h"
-//#include <stdexcept>
+#include <stdexcept>
 #include "CTakhirException.h" 
+#include <string>
 
 /*
 Не изменяемые внутри функции объекты следует либо передавать по константной ссылке
@@ -9,19 +10,20 @@
 У класса строк есть метод empty()
 
 */
+using namespace std;
 
-CStudent::CStudent(string const& name, string const& surname, 
-	string const& patronymic, int const& age)
+CStudent::CStudent(const string & name, const string & surname,
+	const string  & patronymic, int age)
 {
-	if (name.size() == 0 || (count(name.begin(), name.end(), ' ') != 0))
+	if (name.empty() || (count(name.begin(), name.end(), ' ') != 0))
 	{
 		throw CTakhirException("incorrect name is entered");
 	}
-	if (surname.size() == 0 || (count(surname.begin(), surname.end(), ' ') != 0))
+	if (surname.empty() || (count(surname.begin(), surname.end(), ' ') != 0))
 	{
 		throw invalid_argument("incorrect surname is entered");
 	}
-	if (patronymic.size() != 0 && (count(patronymic.begin(), patronymic.end(), ' ') != 0))
+	if (!patronymic.empty() && (count(patronymic.begin(), patronymic.end(), ' ') != 0))
 	{
 		throw invalid_argument("incorrect patronymic is entered");
 	}
@@ -39,22 +41,22 @@ CStudent::~CStudent()
 {
 }
 
-string CStudent::GetName()
+string CStudent::GetName() const
 {
 	return  m_name;
 }
 
-string CStudent::GetSurname()
+string CStudent::GetSurname() const
 {
 	return m_surname;
 }
 
-string CStudent::GetPatronymic()
+string CStudent::GetPatronymic() const
 {
 	return m_patronymic;
 }
 
-int CStudent::GetAge()
+int CStudent::GetAge() const
 {
 	return m_age;
 }

@@ -1,22 +1,21 @@
 #pragma once
 #include <string>
 
-using namespace std;
 
 class CStudent
 {
 public:
-	CStudent(string const& name, string const& surname, 
-		string const& patronymic, int const& age);
+	CStudent(const std::string & name, const std::string & surname,
+		const std::string & patronymic, int age);
 	~CStudent();
-	string GetName();
-	string GetSurname();
-	string GetPatronymic();
-	int GetAge();
-	void Rename(string name, string surname, string patronymic);
+	std::string GetName() const;
+	std::string GetSurname() const;
+	std::string GetPatronymic() const;
+	int GetAge() const;
+	void Rename(std::string name, std::string surname, std::string patronymic);
 	void SetAge(int age);
 private:
 	int m_age;
-	string m_name, m_surname, m_patronymic;
+	std::string m_name, m_surname, m_patronymic;
 };
 

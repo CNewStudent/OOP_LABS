@@ -17,19 +17,15 @@ void VerifyStudentState(const CStudent & student, const string & name, const str
 BOOST_AUTO_TEST_CASE(Init)
 {
 	CStudent student("name", "surname", "patronymic", 20);
-	BOOST_CHECK(student.GetName() == "name");
-	BOOST_CHECK(student.GetSurname() == "surname");
-	BOOST_CHECK(student.GetPatronymic() == "patronymic");
-	BOOST_CHECK(student.GetAge() == 20);
+	VerifyStudentState(student, "name", "surname", "patronymic", 20);
+	
 }
 
 BOOST_AUTO_TEST_CASE(InitWithoutPatronymic)
 {
 	CStudent student("name", "surname", "", 20);
-	BOOST_CHECK(student.GetName() == "name");
-	BOOST_CHECK(student.GetSurname() == "surname");
-	BOOST_CHECK(student.GetPatronymic() == "");
-	BOOST_CHECK(student.GetAge() == 20);
+	VerifyStudentState(student, "name", "surname", "", 20);
+	
 }
 
 BOOST_AUTO_TEST_CASE(ChangeData)
@@ -37,10 +33,8 @@ BOOST_AUTO_TEST_CASE(ChangeData)
 	CStudent student("name", "surname", "patronymic", 20);
 	student.Rename("noname", "nosurname", "");
 	student.SetAge(60);
-	BOOST_CHECK(student.GetName() == "noname");
-	BOOST_CHECK(student.GetSurname() == "nosurname");
-	BOOST_CHECK(student.GetPatronymic() == "");
-	BOOST_CHECK(student.GetAge() == 60);
+	VerifyStudentState(student, "noname", "nosurname", "", 60);
+	
 }
 
 BOOST_AUTO_TEST_CASE(IncorrectName)
