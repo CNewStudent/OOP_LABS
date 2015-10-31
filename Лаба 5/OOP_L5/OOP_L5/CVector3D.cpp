@@ -6,38 +6,43 @@
 CVector3D::CVector3D()
 	:m_x(0), m_y(0), m_z(0)
 {
-	m_length = 0;
+
 }
 
 CVector3D::CVector3D(double x, double y, double z)
 	: m_x(x), m_y(y), m_z(z)
 {
-	m_length = sqrt(m_x * m_x + m_y * m_y + m_z * m_z);
+	
 }
 
 double CVector3D::GetLength()const
 {
-	return m_length;
+	return sqrt(m_x * m_x + m_y * m_y + m_z * m_z);
 }
 
 void CVector3D::Normalize()
 {
-	m_x /= m_length;
-	m_y /= m_length;
-	m_z /= m_length;
+	double length = GetLength();
+	if (length > DBL_EPSILON)
+	{
+		m_x /= length;
+		m_y /= length;
+		m_z /= length;
+	}
 }
 
-void CVector3D::SetLength(double len, bool sign)
-{
-	if (sign)
-	{
-		m_length += len;
-	}
-	else
-	{
-		m_length -= len;
-	}
-}
+//void CVector3D::SetLength(double x, double y, double z)
+//{
+//	m_length = sqrt(m_x * m_x + m_y * m_y + m_z * m_z);
+//}
+
+//void CVector3D::SetLength(double length, bool sum)
+//{
+//	if (sum)
+//		m_length += length;
+//	else
+//		m_length -= length;
+//}
 
 
 //CVector3D const operator -(CVector3D const & v1)

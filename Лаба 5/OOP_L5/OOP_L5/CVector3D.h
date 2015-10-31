@@ -12,7 +12,8 @@ public:
 	CVector3D(double x0, double y0, double z0);
 	double GetLength()const;
 	void Normalize();
-	void SetLength(double len, bool sign);
+	//void SetLength(double x, double y, double z);
+	void SetLength(double length, bool sum);
 	
 	CVector3D const operator -()const
 	{
@@ -23,22 +24,26 @@ public:
 		return *this;
 	}
 	CVector3D const operator +(CVector3D const & vector2)const
-	{
+	{	
 		return CVector3D(m_x + vector2.m_x, m_y + vector2.m_y, m_z + vector2.m_z);
 	}
-	CVector3D const operator -(CVector3D const & vector2)const
-	{
+	CVector3D const operator -(CVector3D const & vector2) const
+	{	
 		return CVector3D(m_x - vector2.m_x, m_y - vector2.m_y, m_z - vector2.m_z);
 	}
 	CVector3D  & operator +=(CVector3D const & vector2)
 	{
-		m_length += vector2.m_length;
+		m_x += vector2.m_x;
+		m_y += vector2.m_y;
+		m_z += vector2.m_z;
 
 		return *this;
 	}
 	CVector3D & operator -=(CVector3D const & vector2)
 	{
-		m_length -= vector2.m_length;
+		m_x -= vector2.m_x;
+		m_y -= vector2.m_y;
+		m_z -= vector2.m_z;
 
 		return *this;
 	}
@@ -50,16 +55,23 @@ public:
 	{
 		return CVector3D(m_x / scalar, m_y / scalar, m_z / scalar);
 	}
-	CVector3D & operator *=(double scalar)const
-	{
-		return CVector3D(m_x * scalar, m_y * scalar, m_z * scalar);
+	CVector3D & operator *=(double scalar)
+	{	
+		m_x *= scalar;
+		m_y *= scalar;
+		m_z *= scalar;
+
+		return *this;
 	}
-	CVector3D & operator /=(double scalar)const
+	CVector3D & operator /=(double scalar)
 	{
-		return CVector3D(m_x / scalar, m_y / scalar, m_z / scalar);
+		m_x /= scalar;
+		m_y /= scalar;
+		m_z /= scalar;
+
+		return *this;
 	}
 	
-	CVector3D const friend operator *(double scalar, CVector3D const & vector1);
 	bool operator ==(CVector3D const & vector2)const
 	{
 		double x = abs(m_x - vector2.m_x);
@@ -68,7 +80,7 @@ public:
 
 		return (x <= DBL_EPSILON) && (y <= DBL_EPSILON) && (z <= DBL_EPSILON);
 	}
-	bool operator !=(CVector3D const & vector2)
+	bool operator !=(CVector3D const & vector2)const
 	{
 		double x = abs(m_x - vector2.m_x);
 		double y = abs(m_y - vector2.m_y);
@@ -76,15 +88,9 @@ public:
 
 		return (x > DBL_EPSILON) || (y > DBL_EPSILON) || (z > DBL_EPSILON);
 	}
-	/*ostream& operator<<(ostream& os)
-	{
-		os << m_x << ", " << m_y << ", " << m_z;
-		return os;
-	}
-	*/
 	
 
-	double m_x, m_y, m_z;
-private:		
-	double m_length;
+	double m_x, m_y, m_z; // , m_length;
 };
+
+CVector3D const operator *(double scalar, CVector3D const & vector1);

@@ -12,7 +12,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	CVector3D vectorOne(10, 10, 5);
 	CVector3D vectorTwo(9, 2, 6);
 
-	CVector3D vectorResultPlus = vectorOne += vectorTwo;
+	//CVector3D vectorResultPlus = vectorOne += vectorTwo;
 	
 
 	
